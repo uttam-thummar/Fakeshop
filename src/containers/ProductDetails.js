@@ -1,16 +1,26 @@
 import React, { useEffect } from 'react'
 import axios from 'axios';
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import {
     removeSelectedProduct,
     selectedProduct
 } from '../redux/actions/productActions';
+import Loader from './Loader';
+import StarRatings from './StarRatings';
 
 function ProductDetails() {
+    const history = useHistory();
     const { productId } = useParams();
     const product = useSelector(state => state.product);
-    const { title, image, price, category, description } = product
+    const { title, image, price, category, description, rating } = product
+    var starRatingsProps = {}, totalStar, filledStar, unfilledStar;
+    if(rating){
+        totalStar = 5;
+        filledStar = Math.round(rating.rate);
+        unfilledStar = totalStar - filledStar;
+        starRatingsProps = {filledStar, unfilledStar}
+    }
     const dispatch = useDispatch();
 
     const fetchProductDetail = async () => {
@@ -28,38 +38,60 @@ function ProductDetails() {
             dispatch(removeSelectedProduct());
         }
     }, [productId]);
+
     return (
         <>
-            <div className="ui grid container">
-                {Object.keys(product).length === 0 ? (
-                    <div>...Loading</div>
-                ) : (
-                    <div className="ui placeholder segment">
-                        <div className="ui two column stackable center aligned grid">
-                            <div className="ui vertical divider">AND</div>
-                            <div className="middle aligned row">
-                                <div className="column lp">
-                                    <img className="ui fluid image" src={image} />
+            {Object.keys(product).length === 0 ? (
+                <div><Loader /></div>
+            ) : (
+                <main>
+                    <div className="card-pd">
+                        <div className="card__title">
+                                <div className="icon" onClick={history.goBack}>
+                                    <i className="fa fa-arrow-left"></i>
                                 </div>
-                                <div className="column rp">
+                            <h3>New products</h3>
+                        </div>
+                        <div className="card__body">
+                            <div className="half">
+                                <div className="featured_text">
                                     <h1>{title}</h1>
-                                    <h2>
-                                        <a className="ui teal tag label">${price}</a>
-                                    </h2>
-                                    <h3 className="ui brown block header">{category}</h3>
+                                    <p className="sub">{category}</p>
+                                </div>
+                                <div className="image">
+                                    <img src={image} alt=""/>
+                                </div>
+                            </div>
+                            <div className="half">
+                                <div className="description">
                                     <p>{description}</p>
-                                    <div className="ui vertical animated button" tabIndex="0">
-                                        <div className="hidden content">
-                                            <i className="shop icon"></i>
-                                        </div>
-                                        <div className="visible content">Add to Cart</div>
-                                    </div>
+                                </div>
+                                <div className="product-price-pd">
+                                    <small>${(price + 13).toFixed(2)}</small>
+                                    <p className="price">${price}</p>
+                                </div>
+                                {filledStar===5 && <p className="hot-tag">TOP RATED</p>}
+                                <span className="stock"><i className="fa fa-pen"></i> In stock</span>
+                                <div className="reviews">
+                                    <ul className="stars">
+                                        <StarRatings {...starRatingsProps}/>
+                                    </ul>
+                                    <span>({rating.count} reviews)</span>
                                 </div>
                             </div>
                         </div>
+                        <div className="card__footer">
+                            <div className="recommend">
+                                <p>Recommended by</p>
+                                <h3>Francisco Armstrong</h3>
+                            </div>
+                            <div className="action">
+                                <button type="button">Add to cart</button>
+                            </div>
+                        </div>
                     </div>
-                )}
-            </div>
+                </main>
+            )}
         </>
     )
 }

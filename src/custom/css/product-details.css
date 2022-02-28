@@ -1,0 +1,238 @@
+@import url("https://fonts.googleapis.com/css?family=Fjalla+One|Montserrat:300,400,700,800|Open+Sans:300");
+main {
+    max-width: 100%;
+    margin: 1% auto;
+}
+
+.card-pd {
+    transition: 200ms;
+    background: #fff;
+}
+.card-pd .card__title {
+    display: flex;
+    align-items: center;
+    padding: 30px 40px;
+}
+.card-pd .card__title h3 {
+    flex: 0 1 200px;
+    text-align: right;
+    margin: 0;
+    color: #1A3263;
+    font-family: sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+.card-pd .card__title .icon {
+    background: #F5564E;
+    color: #fff;
+    padding: 10px 10px;
+    transition: 200ms;
+}
+.card-pd .card__title .icon > a {
+    color: #fff;
+}
+.card-pd .card__title .icon:hover {
+    background: #1A3263;
+}
+.card-pd .card__body {
+    padding: 0 40px;
+    display: flex;
+    flex-flow: row no-wrap;
+    margin-bottom: 25px;
+}
+.card-pd .card__body > .half {
+    box-sizing: border-box;
+    padding: 0 15px;
+    flex: 1 0 50%;
+}
+.card-pd .card__body .featured_text h1 {
+    margin: 0;
+    padding: 0;
+    font-weight: 800;
+    font-family: "Montserrat", sans-serif;
+    font-size: 32px;
+    line-height: 50px;
+    color: #1A3263;
+}
+.card-pd .card__body .featured_text p {
+    margin: 0;
+    padding: 0;
+}
+.card-pd .card__body .featured_text p.sub {
+    font-family: "Montserrat", sans-serif;
+    font-size: 26px;
+    text-transform: uppercase;
+    color: #686e77;
+    font-weight: 300;
+    margin: 8px 0;
+}
+.card-pd .card__body .product-price-pd p.price {
+    font-family: "Fjalla One", sans-serif;
+    color: #252525;
+    font-size: 50px;
+    color: #F5564E;
+    margin-bottom: 30px;
+}
+.card-pd .card__body .product-price-pd small{
+    font-size: 20px;
+    font-weight: 400;
+    text-decoration: line-through;
+    display: inline-block;
+    margin-top: 30px;
+}
+.card-pd .card__body .image {
+    padding-top: 15px;
+    width: 100%;
+    margin-left: 65px;
+}
+.card-pd .card__body .image img {
+    display: block;
+    max-width: 50%;
+    height: auto;
+}
+.card-pd .card__body .description {
+    margin-bottom: 25px;
+}
+.card-pd .card__body .description p {
+    margin: 0;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 300;
+    line-height: 27px;
+    font-size: 16px;
+    color: #555;
+}
+.card-pd .card__body span.stock {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    color: #a1cc16;
+}
+.card-pd .card__body .reviews .stars {
+    display: inline-block;
+    margin-top: 15px;
+    list-style: none;
+    padding: 0;
+}
+.card-pd .card__body .reviews .stars > li {
+    display: inline-block;
+}
+.card-pd .card__body .reviews .stars > li .fas{
+    color: #f7c01b;
+}
+.card-pd .card__body .reviews > span {
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+    margin-left: 5px;
+    color: #555;
+}
+.card-pd .card__footer {
+    padding: 30px 40px;
+    display: flex;
+    flex-flow: row no-wrap;
+    align-items: center;
+    position: relative;
+}
+.card-pd .card__footer::before {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 20px;
+    width: calc(100% - 40px);
+    height: 3px;
+    background: #F5564E;
+    background: linear-gradient(
+        to right,
+        #F5564E 0%,
+        #F5564E 20%,
+        #ddd 20%,
+        #ddd 100%
+    );
+}
+.card-pd .card__footer .recommend {
+    flex: 1 0 10px;
+}
+.card-pd .card__footer .recommend p {
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 14px;
+    color: #555;
+}
+.card-pd .card__footer .recommend h3 {
+    margin: 0;
+    font-size: 20px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #F5564E;
+}
+.card-pd .card__footer .action button {
+    cursor: pointer;
+    border: 1px solid #F5564E;
+    padding: 14px 30px;
+    border-radius: 200px;
+    color: #fff;
+    background: #F5564E;
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    transition: 200ms;
+    font-weight: 600;
+}
+.card-pd .card__footer .action button:hover {
+    background: #fff;
+    color: #F5564E;
+}
+.hot-tag{
+    width: 150px;
+	height: 38px;
+	background-color: #eee;
+	-webkit-border-radius: 3px 4px 4px 3px;
+	-moz-border-radius: 3px 4px 4px 3px;
+	border-radius: 3px 4px 4px 3px;
+	border-left: 1px solid #eee;
+    -webkit-transition: color 0.5s;
+    margin-bottom: 35px;
+	/* This makes room for the triangle */
+	margin-left: 19px;
+	position: relative;
+    color: #999;
+	font-weight: 300;
+	font-size: 22px;
+	line-height: 38px;
+	padding: 0 10px 0 10px;
+}
+.hot-tag:before {
+	content: "";
+	position: absolute;
+	display: block;
+	left: -19px;
+	width: 0;
+	height: 0;
+	border-top: 19px solid transparent;
+	border-bottom: 19px solid transparent;
+	border-right: 19px solid #eee;
+}
+/* Makes the circle */
+.hot-tag:after {
+	content: "";
+	background-color: #999;
+	border-radius: 50%;
+	width: 4px;
+	height: 4px;
+	display: block;
+	position: absolute;
+	left: -9px;
+	top: 17px;
+}
+.hot-tag:hover{
+    background-color: #1A3263;
+    color: #fff;
+}
+.hot-tag:hover::before {
+    border-right-color: #1A3263;
+}
+.hot-tag:hover::after{
+    background-color: #fff;
+}

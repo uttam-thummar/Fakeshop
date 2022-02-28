@@ -1,12 +1,42 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux'
+import React, {useEffect} from 'react'
+import axios from 'axios';
+import { Link, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { removeCategorizedProducts, setCategorizedProducts } from '../redux/actions/productActions';
 import StarRatings from './StarRatings';
 import Loader from './Loader';
 
-function ProductComponent() {
-    const products = useSelector(state => state.allProducts.products);
-    const renderList = products.map((product) => {
+function CategorizedProducts() {
+    const {category} = useParams();
+
+    const dispatch = useDispatch();
+    const categorizedProducts = useSelector(state => state.categorizedProducts.products);
+
+    const fetchCategorizedProducts = async () => {
+        const response = await axios
+        .get(`https://fakestoreapi.com/products/category/${category}`)
+        .catch((error) => {
+            console.log("Api Error", error);
+        });
+        dispatch(setCategorizedProducts(response.data, category));
+    };
+
+    useEffect(() => {
+        fetchCategorizedProducts();
+        return () => {
+            dispatch(removeCategorizedProducts());
+        }
+    }, [category]);
+
+    const capitalized = (words) => {
+        let wordArr = words.split(/[ ]+/);
+        let capitalizedWords = wordArr.map((word) => {
+            return word.charAt(0).toUpperCase() + word.slice(1);
+        })
+        return capitalizedWords.join(" ");
+    }
+
+    const renderList = categorizedProducts.map((product) => {
         const { id, title, image, price, category, rating: {rate} } = product
         const totalStar = 5;
         const filledStar = Math.round(rate);
@@ -14,7 +44,7 @@ function ProductComponent() {
         const starRatingsProps = {filledStar, unfilledStar}
 
         return (
-            <div className="product-card" key={id}>
+            <div className="product-card col-md-4" key={id}>
                 <Link to={`/product/${id}`}>
                     {filledStar === 5 && <div className="badge">Hot</div>}
                     <div className="product-tumb">
@@ -38,17 +68,17 @@ function ProductComponent() {
                 </Link>
             </div>
         )
-    });
+    })
 
     return (
         <>
             {
-                products.length === 0 ? (
+                categorizedProducts.length === 0 ? (
                     <div><Loader /></div>
                 ) : (
                     <>
                         <div className="container">
-                            <h1 className='text-left' style={{margin: '50px 0 35px 0'}}>All Products</h1>
+                            <h1 className='text-left' style={{margin: '50px 0 35px 0'}}>{capitalized(category)}</h1>
                             <div className="row">
                                 {renderList}
                             </div>
@@ -60,4 +90,4 @@ function ProductComponent() {
     )
 }
 
-export default ProductComponent
+export default CategorizedProducts
